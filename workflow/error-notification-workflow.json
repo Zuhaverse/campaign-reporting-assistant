@@ -1,0 +1,60 @@
+{
+  "name": "error-notification-workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2d769bf8-550a-4d85-83a5-fc7af7c793ab",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "YOUR_DISCORD_WEBHOOK_URL",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=\n{\n  \"content\": \"🚨 Campaign Reporting Workflow Failed\\nWorkflow: {{ $json.workflow.name }}\\nFailed node: {{ $json.execution.lastNodeExecuted }}\\nError: {{ $json.execution.error.message }}\\nExecution: {{ $json.execution.url }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "fc58a251-604c-4397-8af4-249915e10b53",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "a55390a3-aee7-497b-82c6-9075a7a97782",
+  "meta": {
+    "instanceId": "ebea13e11d7ca9d35cc3353d52209cb1907cd55a43f269e49c6833eb41ef0df7"
+  },
+  "nodeGroups": [],
+  "id": "W6JnJo69iR0jS2yt",
+  "tags": []
+}
